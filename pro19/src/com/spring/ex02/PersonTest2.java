@@ -10,6 +10,7 @@ public class PersonTest2 {
 		PersonService person1 = (PersonService) factory.getBean("personService1");
 		person1.sayHello();
 		System.out.println();
+		
 		PersonService person2 = (PersonService) factory.getBean("personService2");
 		person2.sayHello();
 	}
