@@ -3,7 +3,7 @@ package com.spring.ex04;
 public class Second {
 
 	public Second() {
-		System.out.println("Second »ı¼ºÀÚ È£Ãâ");
+		System.out.println("Second ìƒì„±ì í˜¸ì¶œ");
 	}
 	
 	

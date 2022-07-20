@@ -11,7 +11,7 @@ public class PersonServiceImpl implements PersonService{
 	
 	@Override
 	public void sayHello() {
-		System.out.println("ÀÌ¸§ : " + name);
-		System.out.println("³ªÀÌ : " + age);
+		System.out.println("ì´ë¦„ : " + name);
+		System.out.println("ë‚˜ì´ : " + age);
 	}
 }

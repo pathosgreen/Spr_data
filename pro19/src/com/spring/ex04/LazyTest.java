@@ -8,7 +8,7 @@ public class LazyTest {
 	public static void main(String[] args) {
 		
 		ApplicationContext context = new FileSystemXmlApplicationContext("lazy.xml");
-		System.out.println("SecondBean ¾ò±â");
+		System.out.println("SecondBean ìƒì„±ì í˜¸ì¶œ");
 		context.getBean("secondBean");
 	}
 }

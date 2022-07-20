@@ -4,7 +4,7 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	@Override
 	public void listMembers() {
-		System.out.println("listMembers ¸Ş¼­µå È£Ãâ");
-		System.out.println("È¸¿øÁ¤º¸¸¦ Á¶È¸ÇÕ´Ï´Ù.");
+		System.out.println("listMembers ë©”ì„œë“œ í˜¸ì¶œ");
+		System.out.println("íšŒì›ì •ë³´ë¥¼ ì¡°íšŒí•©ë‹ˆë‹¤.");
 	}
 }
