@@ -53,9 +53,11 @@ public class UserController extends MultiActionController {
 	
 	private String getViewName(HttpServletRequest request) throws Exception {
 	    String contextPath = request.getContextPath();
+	    System.out.println(contextPath);
 	    String uri = (String)request.getAttribute("javax.servlet.include.request_uri");
 	    if(uri == null || uri.trim().equals("")) {
 	        uri = request.getRequestURI();
+//	        System.out.println(uri);
 	    }
 
 	    int begin = 0;
@@ -75,9 +77,11 @@ public class UserController extends MultiActionController {
 	    String fileName=uri.substring(begin,end);
 	    if(fileName.indexOf(".")!=-1){
 	        fileName=fileName.substring(0,fileName.lastIndexOf("."));
+//	        System.out.println(fileName);
 	    }
 	    if(fileName.lastIndexOf("/")!=-1){
 	    	fileName=fileName.substring(fileName.lastIndexOf("/"),fileName.length());
+//	    	System.out.println(fileName);
 	    }
 		return fileName;
 	}
