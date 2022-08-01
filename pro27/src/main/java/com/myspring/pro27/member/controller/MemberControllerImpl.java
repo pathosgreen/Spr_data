@@ -35,9 +35,9 @@ public class MemberControllerImpl   implements MemberController {
 	@Override
 	@RequestMapping(value="/member/listMembers.do" ,method = RequestMethod.GET)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = getViewName(request);
-//		String viewName = (String)request.getAttribute("viewName");
-		//System.out.println("viewName: " +viewName);
+//		String viewName = getViewName(request);
+		String viewName = (String)request.getAttribute("viewName");
+//		System.out.println("viewName: " +viewName);
 		logger.info("info 레벨 : "+ viewName);
 		logger.debug("debug 레벨 : "+ viewName);
 		List membersList = memberService.listMembers();
@@ -111,15 +111,15 @@ public class MemberControllerImpl   implements MemberController {
 	private ModelAndView form(@RequestParam(value= "result", required=false) String result,
 						       HttpServletRequest request, 
 						       HttpServletResponse response) throws Exception {
-		String viewName = getViewName(request);
-//		String viewName = (String)request.getAttribute("viewName");
+//		String viewName = getViewName(request);
+		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result",result);
 		mav.setViewName(viewName);
 		return mav;
 	}
 	
-
+/*
 	private String getViewName(HttpServletRequest request) throws Exception {
 		String contextPath = request.getContextPath();
 		String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
@@ -150,6 +150,6 @@ public class MemberControllerImpl   implements MemberController {
 		}
 		return viewName;
 	}
-
+*/
 
 }
