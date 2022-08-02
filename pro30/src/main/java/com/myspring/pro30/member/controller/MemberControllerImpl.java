@@ -31,7 +31,7 @@ public class MemberControllerImpl   implements MemberController {
 	private MemberService memberService;
 	@Autowired
 	MemberVO memberVO ;
-	
+
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");

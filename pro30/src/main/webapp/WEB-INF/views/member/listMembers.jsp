@@ -2,16 +2,14 @@
     pageEncoding="UTF-8" 
     isELIgnored="false"  %>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-
+<c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 <%
   request.setCharacterEncoding("UTF-8");
-%>    
-
+%>
 
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>회원 정보 출력창</title>
 </head>
 <body>
