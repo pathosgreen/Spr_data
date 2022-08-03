@@ -3,14 +3,20 @@
     isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-  request.setCharacterEncoding("UTF-8");
-%> 
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="article"  value="${articleMap.article}"  />
+<c:set var="imageFileList"  value="${articleMap.imageFileList}"  />
+
+
+  request.setCharacterEncoding("UTF-8");
+
 <head>
    <meta charset="UTF-8">
    <title>글보기</title>
    <style>
+     #tr_file_upload{
+       display:none;
+     }
      #tr_btn_modify{
        display:none;
      }
@@ -28,6 +34,7 @@
 		 document.getElementById("i_content").disabled=false;
 		 document.getElementById("i_imageFileName").disabled=false;
 		 document.getElementById("tr_btn_modify").style.display="block";
+		 document.getElementById("tr_file_upload").style.display="block";
 		 document.getElementById("tr_btn").style.display="none";
 	 }
 	 
@@ -112,24 +119,98 @@
     <textarea rows="20" cols="60"  name="content"  id="i_content"  disabled />${article.content }</textarea>
    </td>  
   </tr>
- 
-<c:if test="${not empty article.imageFileName && article.imageFileName!='null' }">  
-<tr>
-    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
-      이미지
-   </td>
-   <td>
-     <input  type= "hidden"   name="originalFileName" value="${article.imageFileName }" />
-    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${article.imageFileName}" id="preview"  /><br>
-       
-   </td>   
-  </tr>  
-  <tr>
-    <td>
-       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
-    </td>
-  </tr>
+ <%-- 
+ <c:if test="${not empty imageFileList && imageFileList!='null' }">
+	  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
+		    <tr>
+			    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
+			      이미지${status.count }
+			   </td>
+			   <td>
+			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />
+			    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="preview"  /><br>
+			   </td>   
+			  </tr>  
+			  <tr>
+			    <td>
+			       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+			    </td>
+			 </tr>
+		</c:forEach>
  </c:if>
+ 	 --%>    
+ 	 
+  <c:choose> 
+  	<c:when test="${not empty imageFileList && imageFileList != 'null'}">
+  		  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
+		    <tr>
+			    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
+			      이미지${status.count }
+			   </td>
+			   <td>
+			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />
+			    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="preview"  /><br>
+			   </td>   
+			  </tr>  
+			  <tr>
+			    <td>
+			       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+			    </td>
+			 </tr>
+		</c:forEach>
+  	<!-- 
+ 	  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
+		    <tr>
+			    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">이미지${status.count }
+			   </td>
+			   <td>
+			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />
+			    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${item.imageFileName}" id="preview"  /><br>
+			   </td>   
+			  </tr>  
+			  <tr>
+			    <td>
+			       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+			    </td>
+			 </tr>
+		</c:forEach>
+	 -->
+  	</c:when>
+<%-- 	  <c:when test="${not empty article.imageFileName && article.imageFileName!='null' }">
+	   	<tr>
+		    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
+		      이미지
+		   </td>
+		   <td>
+		     <input  type= "hidden"   name="originalFileName" value="${article.imageFileName }" />
+		    <img src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${article.imageFileName}" id="preview"  /><br>
+		   </td>   
+		  </tr>  
+		  <tr>
+		    <td ></td>
+		    <td>
+		       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+		    </td>
+		  </tr> 
+		 </c:when> --%>
+		 <c:otherwise>
+		    <tr  id="tr_file_upload" >
+				    <td width="150" align="center" bgcolor="#FF9933"  rowspan="2">
+				      이미지
+				    </td>
+				    <td>
+				      <input  type= "hidden"   name="originalFileName" value="${article.imageFileName }" />
+				    </td>
+			    </tr>
+			    <tr>
+				    <td ></td>
+				    <td>
+				       <img id="preview"  /><br>
+				       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
+				    </td>
+			  </tr>
+		 </c:otherwise>
+	 </c:choose>
   <tr>
 	   <td width="150" align="center" bgcolor="#FF9933">
 	      등록일자
@@ -138,17 +219,18 @@
 	    <input type=text value="<fmt:formatDate value="${article.writeDate}" />" disabled />
 	   </td>   
   </tr>
-  <tr   id="tr_btn_modify"  >
-	   <td colspan="2"   align="center" >
-	       <input type=button value="수정반영하기"   onClick="fn_modify_article(frmArticle)"  >
+  <tr id="tr_btn_modify" align="center">
+	   <td colspan="2"   >
+	       <input type=button value="수정반영하기" onClick="fn_modify_article(frmArticle)"  >
            <input type=button value="취소"  onClick="backToList(frmArticle)">
 	   </td>   
   </tr>
-    
-  <tr  id="tr_btn"    >
+  <tr id="tr_btn">
    <td colspan="2" align="center">
-	    <input type=button value="수정하기" onClick="fn_enable(this.form)">
-	    <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
+       <c:if test="${member.id == article.id }">
+	      <input type=button value="수정하기" onClick="fn_enable(this.form)">
+	      <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
+	    </c:if>
 	    <input type=button value="리스트로 돌아가기"  onClick="backToList(this.form)">
 	     <input type=button value="답글쓰기"  onClick="fn_reply_form('${contextPath}/board/replyForm.do', ${article.articleNO})">
    </td>
