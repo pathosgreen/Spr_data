@@ -85,6 +85,8 @@ public class ArticleVO {
 		}
 	}
 	
+	
+
 	public String getId() {
 		return id;
 	}
@@ -101,5 +103,7 @@ public class ArticleVO {
 		this.writeDate = writeDate;
 	}
 
+
+	
 	
 }
