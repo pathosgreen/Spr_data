@@ -16,8 +16,7 @@ public class ArticleVO {
 	private String content;
 	private String imageFileName;
 	private String id;
-	private Date  writeDate;
-	
+	private Date writeDate;
 	
 	public ArticleVO() {
 		System.out.println("ArticleVO 생성자");
@@ -84,8 +83,6 @@ public class ArticleVO {
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 	public String getId() {
 		return id;
@@ -102,8 +99,5 @@ public class ArticleVO {
 	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
 	}
-
-
-	
 	
 }

@@ -24,13 +24,13 @@ import com.myspring.pro30.member.vo.MemberVO;
 
 
 @Controller("memberController")
-@EnableAspectJAutoProxy
+//@EnableAspectJAutoProxy
 public class MemberControllerImpl   implements MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
 	@Autowired
 	private MemberService memberService;
 	@Autowired
-	MemberVO memberVO ;
+	MemberVO memberVO;
 
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {

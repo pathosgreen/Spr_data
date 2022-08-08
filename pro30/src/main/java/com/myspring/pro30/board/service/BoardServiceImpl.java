@@ -61,10 +61,32 @@ public class BoardServiceImpl  implements BoardService{
 	@Override
 	public void modArticle(Map articleMap) throws Exception {
 		boardDAO.updateArticle(articleMap);
+		
+		List<ImageVO> fileList = (List<ImageVO>)articleMap.get("imageFileList");
+		List<ImageVO> modAddimageFileList = (List<ImageVO>)articleMap.get("modAddimageFileList");
+
+		if(fileList != null && fileList.size() != 0) {
+			int added_img_num = Integer.parseInt((String)articleMap.get("added_img_num"));
+			int pre_img_num = Integer.parseInt((String)articleMap.get("pre_img_num"));
+
+			if(pre_img_num < added_img_num) {  //새로 추가된 이미지가 있는 경우와 없는 경우 나누어서 처리
+				boardDAO.updateImageFile(articleMap);
+				boardDAO.insertModNewImage(articleMap);
+			}else {
+				boardDAO.updateImageFile(articleMap);
+			}
+		}else if(modAddimageFileList != null && modAddimageFileList.size() != 0) {
+			boardDAO.insertModNewImage(articleMap);
+		}
 	}
 
 	@Override
 	public void removeArticle(int articleNO) throws Exception {
 		boardDAO.deleteArticle(articleNO);
+	}
+	
+	@Override
+	public void removeModImage(ImageVO imageVO) throws Exception {
+		boardDAO.deleteModImage(imageVO);
 	}
 }

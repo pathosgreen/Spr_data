@@ -6,7 +6,7 @@
 <%request.setCharacterEncoding("UTF-8");%>    
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>회원 정보 출력창</title>
 </head>
 <body>
