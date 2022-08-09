@@ -21,80 +21,80 @@
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
 <script type="text/javascript" >
-	function backToList(obj){
-		obj.action="${contextPath}/board/listArticles.do";
-		obj.submit();
-	}
+function backToList(obj){
+	obj.action="${contextPath}/board/listArticles.do";
+	obj.submit();
+}
 
-	function fn_enable(obj){
-		document.getElementById("i_title").disabled=false;
-		document.getElementById("i_content").disabled=false;
-//		document.getElementById("i_imageFileName").disabled=false;
-		document.getElementById("tr_btn_modify").style.display="block";
-		document.getElementById("tr_btn").style.display="none";
-		$(".tr_modEnable").css('visibility', 'visible'); 
-	}
+function fn_enable(obj){
+	document.getElementById("i_title").disabled=false;
+	document.getElementById("i_content").disabled=false;
+//	document.getElementById("i_imageFileName").disabled=false;
+	document.getElementById("tr_btn_modify").style.display="block";
+	document.getElementById("tr_btn").style.display="none";
+	$(".tr_modEnable").css('visibility', 'visible'); 
+}
 	 
-	 function fn_modify_article(obj){
-		 obj.action="${contextPath}/board/modArticle.do";
-		 obj.submit();
-	 }
+function fn_modify_article(obj){
+	 obj.action="${contextPath}/board/modArticle.do";
+	 obj.submit();
+}
 	 
-	function fn_remove_article(url,articleNO){
+function fn_remove_article(url,articleNO){
+	var form = document.createElement("form");
+	form.setAttribute("method", "post");
+	form.setAttribute("action", url);
+    var articleNOInput = document.createElement("input");
+    articleNOInput.setAttribute("type","hidden");
+    articleNOInput.setAttribute("name","articleNO");
+    articleNOInput.setAttribute("value", articleNO);
+	 
+    form.appendChild(articleNOInput);
+    document.body.appendChild(form);
+    form.submit();
+}
+	 
+function fn_reply_form(url, parentNO){
+	if(isLogOn != '' && isLogOn != 'false'){
 		var form = document.createElement("form");
 		form.setAttribute("method", "post");
 		form.setAttribute("action", url);
-	    var articleNOInput = document.createElement("input");
-	    articleNOInput.setAttribute("type","hidden");
-	    articleNOInput.setAttribute("name","articleNO");
-	    articleNOInput.setAttribute("value", articleNO);
-		 
-	    form.appendChild(articleNOInput);
+	    var parentNOInput = document.createElement("input");
+	    parentNOInput.setAttribute("type","hidden");
+	    parentNOInput.setAttribute("name","parentNO");
+	    parentNOInput.setAttribute("value", parentNO);
+		
+	    form.appendChild(parentNOInput);
 	    document.body.appendChild(form);
-	    form.submit();
+		form.submit();
+	}else{
+		alert("로그인 후 글쓰기가 가능합니다.");
+		location.href="${contextPath}/member/loginForm.do?action=/board/replyForm.do&parentNO="+parentNO;
 	}
+}
 	 
-	function fn_reply_form(url, parentNO){
-		if(isLogOn != '' && isLogOn != 'false'){
-			var form = document.createElement("form");
-			form.setAttribute("method", "post");
-			form.setAttribute("action", url);
-		    var parentNOInput = document.createElement("input");
-		    parentNOInput.setAttribute("type","hidden");
-		    parentNOInput.setAttribute("name","parentNO");
-		    parentNOInput.setAttribute("value", parentNO);
-			
-		    form.appendChild(parentNOInput);
-		    document.body.appendChild(form);
-			form.submit();
-		}else{
-			alert("로그인 후 글쓰기가 가능합니다.");
-			location.href="${contextPath}/member/loginForm.do?action=/board/replyForm.do&parentNO="+parentNO;
-		} 
-	}
-	 
-	function readURL(input) {
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function (e) {
-	            $('#preview').attr('src', e.target.result);
-	        }
-	        reader.readAsDataURL(input.files[0]);
-	    }
-	}
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 	
-	function fn_removeModImage(_imageFileNO, _articleNO, _imageFileName ){
+function fn_removeModImage(_imageFileNO, _articleNO, _imageFileName ){
 
-		$.ajax({
-			type:"post",
-			async:false,  
-			url:"http://localhost:8090/pro30/board/removeModImage.do",
-			dataType:"text",
-			data: {imageFileNO : _imageFileNO,  articleNO : _articleNO, imageFileName : _imageFileName},
-			success:function (result, textStatus){
+	$.ajax({
+		type:"post",
+		async:false,  
+		url:"http://localhost:8090/pro30/board/removeModImage.do",
+		dataType:"text",
+		data: {imageFileNO : _imageFileNO,  articleNO : _articleNO, imageFileName : _imageFileName},
+		success:function (result, textStatus){
 			if(result == 'success'){
 				alert("이미지를 삭제했습니다.");
-       	 		location.href="http://localhost:8090/pro30/board/viewArticle.do?articleNO=" + _articleNO;
+		     	 	location.href="http://localhost:8090/pro30/board/viewArticle.do?articleNO=" + _articleNO;
 			}else{
 				//$('#message').text("사용할 수 없는 ID입니다.");
 			}
@@ -128,7 +128,7 @@ function fn_addModImage(_img_index){
 						"<input type=file name=imageFileName" + img_index + " onchange='readURL(this,"+ img_index+")' />"+
 						'</td>';
 	innerHtml +='<td>'+
-						"<img  id=preview"+img_index+" />"+
+						"<img id=preview"+img_index+" />"+
 	                  	'</td>';
 	innerHtml +='</tr>';
 	$("#tb_addImage").append(innerHtml);
@@ -150,7 +150,7 @@ function fn_addModImage(_img_index){
   <tr>
     <td width="150" align="center" bgcolor="#FF9933">작성자 아이디</td>
    <td>
-    <input type=text value="${article.id }" name="writer"  disabled />
+    <input type=text value="${article.id }" name="writer" disabled />
    </td>
   </tr>
   <tr>

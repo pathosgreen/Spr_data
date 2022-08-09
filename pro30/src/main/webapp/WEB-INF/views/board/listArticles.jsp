@@ -46,7 +46,7 @@ function fn_articleForm(isLogOn,articleForm,loginForm){
     </tr>
   </c:when>
   <c:when test="${!empty articlesList}" >
-    <c:forEach  var="article" items="${articlesList}" varStatus="articleNum" >
+    <c:forEach var="article" items="${articlesList}" varStatus="articleNum" >
      <tr align="center">
 	<td width="5%">${articleNum.count}</td>
 	<td width="10%">${article.id }</td>
@@ -65,13 +65,13 @@ function fn_articleForm(isLogOn,articleForm,loginForm){
 	          </c:otherwise>
 	        </c:choose>
 		  </td>
-		  <td  width="10%"><fmt:formatDate value="${article.writeDate}" /></td> 
+		  <td width="10%"><fmt:formatDate value="${article.writeDate}" /></td> 
 		</tr>
 	  </c:forEach>
 	</c:when>
   </c:choose>
 </table>
-<!-- <a  class="cls1"  href="#"><p class="cls2">글쓰기</p></a> -->
+<!-- <a class="cls1" href="#"><p class="cls2">글쓰기</p></a> -->
 <a class="cls1" href="javascript:fn_articleForm('${isLogOn}','${contextPath}/board/articleForm.do', 
                                                     '${contextPath}/member/loginForm.do')"><p class="cls2">글쓰기</p></a>
 </body>
