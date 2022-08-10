@@ -46,7 +46,6 @@ public class ArticleVO {
 		this.level = level;
 	}
 
-
 	public String getTitle() {
 		return title;
 	}

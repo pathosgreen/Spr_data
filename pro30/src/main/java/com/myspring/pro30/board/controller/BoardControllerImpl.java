@@ -279,14 +279,14 @@ public class BoardControllerImpl implements BoardController {
 					articleMap.put("imageFileList", imageFileList);
 				} else {
 					imageVO.setImageFileName(fileName);
-//						imageVO.setImageFileNO(Integer.parseInt(imageFileNO[i]));
+//					imageVO.setImageFileNO(Integer.parseInt(imageFileNO[i]));
 					modAddimageFileList.add(imageVO);
 					articleMap.put("modAddimageFileList", modAddimageFileList);
 				}
 			}
 		}
 
-//	articleMap.put("fileList", fileList);
+//		articleMap.put("fileList", fileList);
 
 		String articleNO = (String) articleMap.get("articleNO");
 		String message;

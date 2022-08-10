@@ -36,7 +36,11 @@ function fn_addFile(){
 <body>
 <h1 style="text-align:center">새글 쓰기</h1>
 <form name="articleForm" method="post" action="${contextPath}/board/addNewArticle.do" enctype="multipart/form-data">
-<table border="0" align="center">
+<table align="center">
+  <tr>
+	<td align="right">글쓴이:</td>
+	<td colspan="2"><input type="text" size="67" value="${member.name}" disabled /> </td>
+  </tr>
   <tr>
 	<td align="right">글제목: </td>
 	<td colspan="2"><input type="text" size="67" maxlength="500" name="title" /></td>
@@ -58,7 +62,7 @@ function fn_addFile(){
 	<td align="right"> </td>
 	<td colspan="2">
 	  <input type="submit" value="글쓰기" />
-	  <input type=button value="목록보기"onClick="backToList(this.form)" />
+	  <input type=button value="목록보기" onClick="backToList(this.form)" />
 	</td>
   </tr>
 </table>

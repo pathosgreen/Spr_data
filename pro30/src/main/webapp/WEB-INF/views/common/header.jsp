@@ -6,7 +6,7 @@
 <%
   request.setCharacterEncoding("UTF-8");
 %> 
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="contextPath" value="${pageContext.request.contextPath}"  />
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
 <title>헤더</title>
 </head>
 <body>
-<table border=0  width="100%">
+<table border=0 width="100%">
   <tr>
      <td>
 		<a href="${contextPath}/main.do">

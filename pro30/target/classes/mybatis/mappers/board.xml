@@ -20,7 +20,7 @@
 	  <result property="imageFileName" column="imageFileName" />
  </resultMap>
 
-  <select id="selectAllArticlesList" resultMap="articlesResult"   >
+  <select id="selectAllArticlesList" resultMap="articlesResult" >
     <![CDATA[
       SELECT level, articleNO, parentNO, title, content, writeDate, imageFileName, id
       from t_board
@@ -40,35 +40,35 @@
 	</insert>
  -->
 
-	<select id="selectTotArticles"   resultType="int">
+	<select id="selectTotArticles" resultType="int">
 		<![CDATA[  
 			select count(articleNO) from t_board
-		 ]]>	
+		 ]]>
 	</select>
 
  <!--다중 이미지 추가 SQL문 -->   
-    <insert id="insertNewArticle"  parameterType="java.util.Map">
+    <insert id="insertNewArticle" parameterType="java.util.Map">
     <![CDATA[
       insert into t_board(articleNO, id, title, content, imageFileName)
       values(#{articleNO}, #{id}, #{title}, #{content}, null)
     ]]>      
-  </insert>
+	</insert>
 
-   <insert id="insertNewImage"  parameterType="java.util.Map">
+	<insert id="insertNewImage"  parameterType="java.util.Map">
     <foreach item="item"  collection="list"   open="INSERT ALL" 
                   separator=" " close="SELECT * FROM DUAL" >
       INTO t_imageFile(imageFileNO, imageFileName, articleNO, regDate)
       VALUES (#{item.imageFileNO}, #{item.imageFileName}, #{item.articleNO}, sysdate)
-    </foreach>
-  </insert>
+	</foreach>
+	</insert>
   
-    <select id="selectNewArticleNO" resultType="int"  >
+	<select id="selectNewArticleNO" resultType="int"  >
 		<![CDATA[
 			SELECT  nvl(max(articleNO), 0) + 1 from t_board		
 		]]>
 	</select>
   
-    <select id="selectArticle" resultType="articleVO"   parameterType="int">
+    <select id="selectArticle" resultType="articleVO" parameterType="int">
     <![CDATA[
       SELECT * from t_board
       where articleNO = #{articleNO}
@@ -99,8 +99,7 @@
 			<!-- <where> articleN=#{code} AND SE_LOW=#{item.se_low} AND SE_COL=#{item.se_col} </where> -->
 		</foreach>
 	</update>
-	
-		<delete id="deleteArticle"  parameterType="int">
+	<delete id="deleteArticle" parameterType="int">
     <![CDATA[
       delete from t_board
       where articleNO in (
@@ -108,22 +107,22 @@
          START WITH articleNO = #{articleNO}
          CONNECT BY PRIOR  articleNO = parentNO )
     ]]>      
-  </delete>
+	</delete>
 
-  <select id="selectNewImageFileNO" resultType="int"  >
+	<select id="selectNewImageFileNO" resultType="int"  >
     <![CDATA[
       SELECT  nvl(max(imageFileNO),0) from t_imageFile		
     ]]>
-  </select>
+	</select>
 
-  <select  id="selectImageFileList" resultMap="imgResult" parameterType="int">
+	<select  id="selectImageFileList" resultMap="imgResult" parameterType="int">
     <![CDATA[
       SELECT * from t_imageFile
       where articleNO=#{articleNO}
     ]]>
-  </select> 
+	</select> 
   
-  <delete id="deleteModImage" parameterType="imageVO">
+	<delete id="deleteModImage" parameterType="imageVO">
 	    <![CDATA[
 	      delete from t_imageFile
 	      where articleNO = #{articleNO}

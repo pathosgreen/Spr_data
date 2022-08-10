@@ -6,7 +6,7 @@
 <%
   request.setCharacterEncoding("UTF-8");
 %> 
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="contextPath" value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html>
 
 <html>
@@ -29,9 +29,9 @@
     </h1>
  -->
 	<h1>
-		<a href="${contextPath}/member/listMembers.do"  class="no-underline">회원관리</a><br>
-		<a href="${contextPath}/board/listArticles.do"  class="no-underline">게시판관리</a><br>
-		<a href="#"  class="no-underline">상품관리</a><br>
+		<a href="${contextPath}/member/listMembers.do" class="no-underline">회원관리</a><br>
+		<a href="${contextPath}/board/listArticles.do" class="no-underline">게시판관리</a><br>
+		<a href="#" class="no-underline">상품관리</a><br>
 	</h1>
 
 </body>

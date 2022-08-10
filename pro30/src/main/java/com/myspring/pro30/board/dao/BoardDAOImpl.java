@@ -21,7 +21,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public List selectAllArticlesList() throws DataAccessException {
-		List<ArticleVO> articlesList = articlesList = sqlSession.selectList("mapper.board.selectAllArticlesList");
+		List<ArticleVO> articlesList = sqlSession.selectList("mapper.board.selectAllArticlesList");
 		return articlesList;
 	}
 	
@@ -110,7 +110,6 @@ public class BoardDAOImpl implements BoardDAO {
 			imageVO.setArticleNO(articleNO);
 			imageVO.setImageFileNO(++imageFileNO);
 		}
-		
 		sqlSession.delete("mapper.board.insertModNewImage", modAddimageFileList );
 		
 	}

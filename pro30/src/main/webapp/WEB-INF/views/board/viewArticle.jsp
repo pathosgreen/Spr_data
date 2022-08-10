@@ -108,8 +108,8 @@ function fn_removeModImage(_imageFileNO, _articleNO, _imageFileName ){
 	});  //end ajax	
 }
  
-var pre_img_num = 0;  //수정 이전의 이미지 수
-var img_index = 0;     //수정 후 이미지 수 
+var pre_img_num = 0; //수정 이전의 이미지 수
+var img_index = 0;   //수정 후 이미지 수 
  
 var isFirstAddImage = true;
 function fn_addModImage(_img_index){
@@ -139,7 +139,7 @@ function fn_addModImage(_img_index){
 </head>
 <body>
 <form name="frmArticle" method="post" action="${contextPath}" enctype="multipart/form-data">
-<table border=0 align="center">
+<table align="center">
   <tr>
    <td width=150 align="center" bgcolor=#FF9933>글번호</td>
    <td>
@@ -229,12 +229,12 @@ function fn_addModImage(_img_index){
 	  </td>
 	</tr>
 	<tr>
-	   <td width="150" align="center" bgcolor="#FF9933">
-	      등록일자
-	   </td>
-	   <td>
-	    <input type=text value="<fmt:formatDate value="${article.writeDate}" />" disabled />
-	   </td>   
+	<td width="150" align="center" bgcolor="#FF9933">
+	  등록일자
+	</td>
+	<td>
+	  <input type=text value="<fmt:formatDate value="${article.writeDate}" />" disabled />
+	</td>   
   </tr>
   <tr id="tr_btn_modify">
 	<td colspan="2"   align="center">
