@@ -17,7 +17,7 @@ import lombok.ToString;
  * Handles requests for the application home page.
  */
 @Controller
-//@ToString
+@ToString
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -35,7 +35,8 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-//		System.out.println(this);
+		
+		System.out.println(this);
 		return "home";
 	}
 	
