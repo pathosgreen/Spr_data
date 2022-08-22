@@ -22,11 +22,24 @@
 
   <select id="selectAllArticlesList" resultMap="articlesResult" >
     <![CDATA[
-      SELECT level, articleNO, parentNO, title, content, writeDate, imageFileName, id
-      from t_board
-      START WITH  parentNO=0
-      CONNECT BY PRIOR articleNO=parentNO 
-      ORDER SIBLINGS BY articleNO DESC		
+      /* with recursive 재귀를 사용하겠다는 선언 */
+	with recursive cte as
+	(
+	    select articleNO, parentNO, title, content, imageFileName, writedate, id,
+       cast(id as char(100)) lvl
+	    from t_board
+	    where parentNo=0
+    /* select 문의 결합을 위한 union all */
+		union all
+        
+		select a.articleNO, a.parentNO, a.title, a.content, a.imageFileName, a.writedate, a.id,
+		concat(b.lvl, ',', a.articleno) lvl
+		from t_board a
+		inner join cte b on a.parentno = b.articleno 
+	)
+		select articleno, parentno, concat(repeat('&nbsp;&nbsp', parentNO), 'ㄴ', title) as title, parentno, id, writedate
+		from cte
+		order by articleNO desc;
     ]]>
   </select>
   
