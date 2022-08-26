@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.PageDTO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -77,5 +78,14 @@ public class BoardMapperTests {
 		
 		int count = mapper.update(board);
 		log.info("UPDATE COUNT : " + count);
+	}
+	@Test
+	public void testPageDTO() {
+		Criteria cri = new Criteria();
+		cri.setPageNum(21);
+		
+		PageDTO pageDTO = new PageDTO(cri,251);
+		
+		log.info(pageDTO);
 	}
 }

@@ -17,7 +17,6 @@
                      <div class="panel-heading">Board Read Page</div>
                      <!-- /.panel-heading -->
                      <div class="panel-body">
-                     <form id ='operForm'>
                      	<div class="form-group">
                      		<label>Bno</label><input class="form-control" name="bno"
                      		value='<c:out value="${board.bno}"/>' readonly="readonly">
@@ -35,9 +34,15 @@
                      		<label>Writer</label><input class="form-control" name="writer"
                      		value='<c:out value="${board.writer}"/>' readonly="readonly">
                      	</div>
-                     	<button type="reset" class="btn btn-info"><a href='/board/list'>List</a></button>
-                     	<button type="reset" class="btn btn-default"><a href='/board/modify?bno=<c:out value="${board.bno }"/>'>Modify</a></button>
-                     </form>
+                     	<form id='actionForm' action="/board/list" method="get">
+			               <input type="hidden" name="pageNum" value='${cri.pageNum}'> 
+			               <input type="hidden" name="amount" value='${cri.amount}'>
+			               <input type="hidden" id="bno" name="bno" value='${board.bno}'>
+			            </form>
+			                           
+	                    <button type="button" class="btn btn-info listBtn"><a href='/board/list'>List</a></button>
+					    <button type="button" class="btn btn-default modBtn"><a href='/board/modify?bno=<c:out value="${board.bno}"/>'>Modify</a></button>
+
                      </div>
                         <!-- /.panel-body -->
                     </div>
@@ -46,4 +51,19 @@
                 <!-- /.col-lg-6 -->
             </div>
             <!-- /.row -->
+<script>
+	var actionForm = $("#actionForm");
+	
+	$(".listBtn").click(function(e){
+		e.preventDefault();
+		actionForm.submit();
+	})
+	
+	$(".modBtn").click(function(e){
+		e.preventDefault();
+		actionForm.attr("action", "/board/modify");
+		actionForm.submit();
+	})
+
+</script>
 <%@include file="../includes/footer.jsp" %>

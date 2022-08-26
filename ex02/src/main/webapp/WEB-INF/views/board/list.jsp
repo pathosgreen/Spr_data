@@ -29,10 +29,10 @@
                                         <th>수정일</th>
                                     </tr>
                                 </thead>
-                                 <c:forEach items="${list}" var="board">
+                                <c:forEach items="${list}" var="board">
                                	<tr>
                                		<td><c:out value="${board.bno}" /></td>
-                               		<td><a href='/board/get?bno=<c:out value="${board.bno}"/>'>
+                               		<td><a class="move" href='<c:out value="${board.bno}"/>'>
                                		<c:out value="${board.title}" /></a></td>
                                		<td><c:out value="${board.writer}" /></td>
                                		<td><fmt:formatDate pattern="yyyy-MM-dd"
@@ -42,6 +42,32 @@
                                	</tr>
                                 </c:forEach> 
                             </table>
+                            <!-- 테이블 종료 -->
+                            <!-- 페이지 처리 시작 -->
+                            <%-- <h3>${pageMaker}</h3> --%>
+                             <div class="pull-right">
+                            	<ul class="pagination">
+                            		<c:if test="${pageMaker.prev}">
+                            			<li class="page-item"><a class="page-link" href="${pageMaker.startPage-1}">Previous</a></li>
+                            		</c:if>
+                            		
+                            		<c:forEach var="num" begin="${pageMaker.startPage}"
+                            			end="${pageMaker.endPage}">
+                            			<li class="paginate_item ${pageMaker.cri.pageNum == num ? "active" : "" }">
+                            			<a class="page-link" href="${num}">${num}</a></li>
+                            		</c:forEach>
+                            		
+                            		<c:if test="${pageMaker.next}">
+                            			<li class="page-item"><a class="page-link" href="${pageMaker.endPage-1}">Next</a></li>
+                            		</c:if>
+                            	</ul>
+                            </div>
+                            <form id="actionForm" action="/board/list" method="get">
+                            	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                            	<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                            </form>
+                            <!-- 페이지 처리 종료 -->
+                            <!-- 모달 추가 -->
                             <div id="myModal" class="modal" tabindex="-1" role="dialog">
 							  <div class="modal-dialog" role="document">
 							    <div class="modal-content">
@@ -90,10 +116,31 @@
 			}
 			$("#myModal").modal("show");
 		}
-	});
-	
-	$("#regBtn").on("click",function(){
-		self.location = "/board/register";
+		
+		$("#regBtn").on("click",function(){
+			self.location = "/board/register";
+		});
+		
+		var actionForm = $("#actionForm");
+		
+		$(".page-link").on("click",function(e){
+			e.preventDefault();
+			var targetPage = $(this).attr("href");
+			console.log(targetPage);
+
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		});
+		
+		$(".move").on("click",function(e){
+			e.preventDefault();
+			var targetBno = $(this).attr("href");
+			
+			console.log(targetBno);
+			
+			actionForm.append("<input type='hidden' name = 'bno' value='"+targetBno+"'>'");
+			actionForm.attr("action", "/board/get").submit();
+		});
 	});
 	
 </script>
